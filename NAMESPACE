@@ -2,3 +2,6 @@
 
 export(list_tables)
 export(show_table_info)
+importFrom(paws,s3)
+importFrom(purrr,walk2)
+importFrom(readr,format_csv)
