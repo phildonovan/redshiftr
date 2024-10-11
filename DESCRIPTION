@@ -14,9 +14,11 @@ RoxygenNote: 7.3.1
 Imports: 
     DBI,
     paws,
+    progress,
     purrr,
     readr,
-    sf
+    sf,
+    utils
 Depends: 
     R (>= 4.3.3)
 Suggests: 
