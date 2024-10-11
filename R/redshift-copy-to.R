@@ -72,7 +72,7 @@ redshift_copy_to = function(
     return(rs_replace_table(df, dbcon, table_name, split_files, bucket, region, access_key, secret_key, session_token, iam_role_arn, wlm_slots, additional_params))
   } else {
     # Fall back to INSERT approach
-    warning("S3 credentials not provided or use_s3 is FALSE. Falling back to direct insert, which may be slow.")
+    message("S3 credentials not provided or use_s3 is FALSE. Falling back to direct insert, which may be slow.")
     return(rs_insert_table()) # Placeholder for your custom insert function
   }
 

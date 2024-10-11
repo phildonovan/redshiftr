@@ -2,6 +2,7 @@
 
 export(list_tables)
 export(redshift_copy_to)
+export(rs_insert_sql)
 export(show_table_info)
 importFrom(DBI,dbExecute)
 importFrom(DBI,dbGetQuery)
