@@ -191,3 +191,28 @@ splitDetermine <- function(dbcon, numRows, rowSize){
 #'
 #' This function copies data from an S3 bucket to a Redshift table using the COPY command.
 #' It
+#'
+#'
+
+
+#' Delete a table from Redshift
+#'
+#' This function generates and executes a `DROP TABLE` SQL statement to delete a table from Redshift.
+#'
+#' @param con A DBI connection object to Redshift.
+#' @param table_name The name of the table to be deleted.
+#' @return NULL. The table is deleted from Redshift.
+#' @export
+rs_delete_table <- function(con, table_name) {
+  # Full table name with schema protection
+  full_table_name <- I(table_name)
+
+  # Generate the DROP TABLE SQL statement
+  drop_sql <- paste0("DROP TABLE ", full_table_name, ";")
+
+  # Execute the DROP TABLE statement
+  dbExecute(con, drop_sql)
+
+  message("Table deleted: ", table_name)
+
+}

@@ -71,10 +71,10 @@ redshift_copy_to <- function(con, df, table_name, chunk_size = 10000, rollback_o
       chunked_indices,
       function(index_chunk) {
         # Keep attempting to insert until it's small enough to succeed
-        df_chunk <- df[index_chunk, , drop = FALSE]
+        .data <- df[index_chunk, , drop = FALSE]
         while (TRUE) {
           # Generate the insert SQL
-          insert_sql <- rs_insert_sql(df_chunk, table_name, con)
+          insert_sql <- rs_insert_sql(.data, table_name, con)
 
           # If the size is acceptable, execute it within its own transaction
           if (nchar(insert_sql) <= max_statement_size) {
@@ -90,8 +90,8 @@ redshift_copy_to <- function(con, df, table_name, chunk_size = 10000, rollback_o
             })
           } else {
             # If too large, halve the chunk and try again
-            chunk_size <- ceiling(nrow(df_chunk) / 2)
-            df_chunk <- df_chunk[seq_len(chunk_size), , drop = FALSE]
+            chunk_size <- ceiling(nrow(.data) / 2)
+            .data <- .data[seq_len(chunk_size), , drop = FALSE]
           }
         }
       },
@@ -118,21 +118,21 @@ redshift_copy_to <- function(con, df, table_name, chunk_size = 10000, rollback_o
 
 #' Generate a single SQL insert command for multiple rows
 #'
-#' This function generates a combined SQL `INSERT INTO` statement for a chunk of data,
+#' This function generates a combined SQL `INSERT INTO` statement for a given data frame,
 #' so that all rows in the chunk are inserted with one `dbExecute()` call.
 #'
-#' @param df_chunk A chunk of the data frame for which to generate a single `INSERT INTO` statement.
+#' @param .data A data frame for which to generate an `INSERT INTO` statement.
 #' @param table_name The name of the table where data will be inserted.
 #' @param con A DBI connection object to Redshift.
 #' @return A single string containing a combined SQL `INSERT INTO` statement.
 #' @export
-rs_insert_sql <- function(df_chunk, table_name, con) {
+rs_insert_sql <- function(.data, table_name, con) {
 
   # Full table name with schema protection
   full_table_name <- I(table_name)
 
   # Trim character columns, replace empty strings with NA, and convert geometry to EWKB
-  df_chunk <- purrr::imap_dfc(df_chunk, ~ {
+  .data <- imap_dfc(.data, ~ {
     if (inherits(.x, 'sfc')) {
       paste0("ST_GeomFromEWKT('", sf::st_as_text(.x, EWKT = TRUE), "')")
     } else if (is.character(.x)) {
@@ -146,9 +146,9 @@ rs_insert_sql <- function(df_chunk, table_name, con) {
     }
   })
 
-  # return(df_chunk)
+  # return(.data)
   # Process each column based on its type for SQL insertion
-  df_chunk <- df_chunk |>
+  .data <- .data |>
     mutate(
       across(
         everything(),
@@ -165,7 +165,7 @@ rs_insert_sql <- function(df_chunk, table_name, con) {
     )
 
   # Use unite() to combine all columns into a single value string for each row
-  values_list <- df_chunk |>
+  values_list <- .data |>
     unite("value_string", everything(), sep = ", ", remove = FALSE) |>
     mutate(value_string = paste0("(", value_string, ")")) |>
     pull(value_string)

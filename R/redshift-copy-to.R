@@ -61,11 +61,17 @@ redshift_copy_to = function(
   message('Initiating Redshift table creation or data insert for table ', table_name)
 
   # Create the table schema regardless of the approach
-  tableSchema = rs_create_statement(df, table_name = table_name, sortkeys=sortkeys,
-                                    sortkey_style = sortkey_style, distkey=distkey, distkey_style = distkey_style,
-                                    compression = compression)
+  table_schema <- rs_create_statement(
+    df,
+    table_name = table_name,
+    sortkeys=sortkeys,
+    sortkey_style = sortkey_style,
+    distkey=distkey,
+    distkey_style = distkey_style,
+    compression = compression
+  )
 
-  queryStmt(dbcon, tableSchema)
+  queryStmt(dbcon, table_schema)
 
   if (use_s3 && bucket != "" && access_key != "" && secret_key != "") {
     # Use S3 COPY approach
@@ -73,7 +79,7 @@ redshift_copy_to = function(
   } else {
     # Fall back to INSERT approach
     message("S3 credentials not provided or use_s3 is FALSE. Falling back to direct insert, which may be slow.")
-    return(rs_insert_table()) # Placeholder for your custom insert function
+    return(rs_insert_sql(df, table_name, dfcon)) # Placeholder for your custom insert function
   }
 
 }

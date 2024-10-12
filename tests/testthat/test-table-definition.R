@@ -45,8 +45,6 @@ test_that("rs_create_statement generates correct SQL for iris dataset", {
 
 # Define the test for rs_create_statement using sf geometry dataset
 test_that("rs_create_statement generates correct SQL for sf geometry dataset", {
-  # Load the sf library
-  library(sf)
 
   # Create a simple sf object with geometry
   df <- st_as_sf(data.frame(id = 1:5, x = runif(5), y = runif(5)), coords = c("x", "y"), crs = 4326)

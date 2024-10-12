@@ -4,10 +4,10 @@
 \alias{rs_insert_sql}
 \title{Generate a single SQL insert command for multiple rows}
 \usage{
-rs_insert_sql(df_chunk, table_name, con)
+rs_insert_sql(.data, table_name, con)
 }
 \arguments{
-\item{df_chunk}{A chunk of the data frame for which to generate a single \verb{INSERT INTO} statement.}
+\item{.data}{A data frame for which to generate an \verb{INSERT INTO} statement.}
 
 \item{table_name}{The name of the table where data will be inserted.}
 
@@ -17,6 +17,6 @@ rs_insert_sql(df_chunk, table_name, con)
 A single string containing a combined SQL \verb{INSERT INTO} statement.
 }
 \description{
-This function generates a combined SQL \verb{INSERT INTO} statement for a chunk of data,
+This function generates a combined SQL \verb{INSERT INTO} statement for a given data frame,
 so that all rows in the chunk are inserted with one \code{dbExecute()} call.
 }
