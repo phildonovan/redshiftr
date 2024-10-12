@@ -129,22 +129,24 @@ redshift_copy_to <- function(con, df, table_name, chunk_size = 10000, rollback_o
 rs_insert_sql <- function(df_chunk, table_name, con) {
 
   # Full table name with schema protection
-  full_table_name <- paste0(I(table_name))
+  full_table_name <- I(table_name)
 
   # Trim character columns, replace empty strings with NA, and convert geometry to EWKB
-  df_chunk <- df_chunk |>
-    mutate(
-      across(where(is.character), ~ ifelse(str_trim(.) == "", NA, str_trim(.))),
-      across(where(is.Date), ~ format(., "%Y-%m-%d")),
-      across(where(is.POSIXt), ~ format(., "%Y-%m-%d %H:%M:%S")),
-      across(where(inherits, "sfc"), ~ sf::st_as_binary(.)) # Convert geometry to EWKB
-    )
-  mutate(
-    across(where(is.character), ~ ifelse(str_trim(.) == "", NA, str_trim(.))),
-    across(where(is.Date), ~ format(., "%Y-%m-%d")),
-    across(where(is.POSIXt), ~ format(., "%Y-%m-%d %H:%M:%S"))
-  )
+  df_chunk <- purrr::imap_dfc(df_chunk, ~ {
+    if (inherits(.x, 'sfc')) {
+      paste0("ST_GeomFromEWKT('", sf::st_as_text(.x, EWKT = TRUE), "')")
+    } else if (is.character(.x)) {
+      ifelse(str_trim(.x) == '', NA, str_trim(.x))
+    } else if (inherits(.x, 'Date')) {
+      format(.x, '%Y-%m-%d')
+    } else if (inherits(.x, 'POSIXt')) {
+      format(.x, '%Y-%m-%d %H:%M:%S')
+    } else {
+      .x
+    }
+  })
 
+  # return(df_chunk)
   # Process each column based on its type for SQL insertion
   df_chunk <- df_chunk |>
     mutate(
@@ -153,7 +155,11 @@ rs_insert_sql <- function(df_chunk, table_name, con) {
         ~ case_when(
           is.na(.) ~ "DEFAULT",
           is.numeric(.) ~ as.character(.),
-          is.character(.) ~ as.character(dbQuoteString(con, as.character(.)))
+          is.character(.) ~ ifelse(
+            grepl("^ST_GeomFromEWKT", .),
+            .,
+            as.character(dbQuoteString(con, as.character(.)))
+          )
         )
       )
     )

@@ -14,12 +14,15 @@ RoxygenNote: 7.3.1
 Imports: 
     DBI,
     dplyr,
+    lubridate,
     paws,
     progress,
     purrr,
     readr,
     sf,
+    stringr,
     tidyr,
+    tidyselect,
     utils
 Depends: 
     R (>= 4.3.3)
