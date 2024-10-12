@@ -9,45 +9,77 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of redshiftr is to …
+`redshiftr` is an R package designed to help users interact with Amazon
+Redshift, particularly in situations where direct access to an S3 bucket
+is not available. This package is a continuation of the original
+`redshiftTools`, which is no longer actively maintained. While building
+on the excellent foundation provided by `redshiftTools`, `redshiftr`
+introduces a few new features and enhancements:
+
+- **Table Creation Without S3 Access:** Unlike the original package,
+  `redshiftr` allows users to create tables in Redshift directly,
+  without the need for an S3 bucket. Please note, however, that this
+  process is considerably slower than the standard method and is
+  recommended only for small tables.
+
+- **Spatial Table Creation (Experimental):** The package also offers the
+  ability to create spatial tables in Redshift, a feature that is
+  currently under active development and is considered highly
+  experimental.
+
+This package is made possible thanks to the original authors of
+`redshiftTools`, whose work has been extended and improved upon here.
+Their contributions have laid the groundwork for this ongoing
+development effort.
 
 ## Installation
 
-You can install the development version of redshiftr like so:
+You can install the latest version of redshiftr directly from GitHub
+using the following command:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+# Install remotes package if you haven't already
+#install.packages("remotes")
+
+# Install redshiftr from GitHub
+remotes::install_github("phildonovan/redshiftr")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Below is a simple example demonstrating how to use the
+`redshift_copy_to()` function to create a table in a Redshift instance.
+In this example, we’ll use the iris dataset and the nc dataset from the
+sf package.
+
+Before starting, make sure you are connected to your Redshift database
+using `DBI::dbConnect()`.
 
 ``` r
+# Load necessary libraries
+library(DBI)
 library(redshiftr)
-## basic example code
+library(sf)
+
+# Connect to your Redshift database (replace with your connection details)
+con <- dbConnect(RPostgres::Postgres(),
+                 dbname = "your_db_name",
+                 host = "your_host",
+                 port = 5439,
+                 user = "your_username",
+                 password = "your_password")
+
+# Example 1: Copying the iris dataset to Redshift
+# Create a table in Redshift using the iris dataset
+redshift_copy_to(con, df = iris, table_name = "iris_table")
+
+# Example 2: Copying the nc dataset (from sf package) to Redshift
+# Load the nc dataset
+nc <- st_read(system.file("shape/nc.shp", package = "sf"))
+
+# Create a spatial table in Redshift using the nc dataset
+redshift_copy_to(con, df = nc, table_name = "nc_table")
+
+# Disconnect from the database
+dbDisconnect(con)
 ```
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
