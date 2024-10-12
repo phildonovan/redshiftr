@@ -1,75 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/404.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/index.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/begin_transaction.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/calculate_char_size.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/col_to_redshift_type.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/commit_transaction.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/deletePrefix.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/hello.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/list_tables.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/queryDo.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/queryStmt.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/redshift_copy_to.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/redshiftr-package.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/rollback_transaction.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/rs_create_statement.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/rs_delete_table.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/rs_insert_sql.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/show_table_info.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/splitDetermine.html</loc>
-  </url>
-  <url>
-    <loc>https://phildonovan.github.io/redshiftr/reference/uploadToS3.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://phildonovan.github.io/redshiftr/404.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/LICENSE-text.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/LICENSE.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/authors.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/index.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/begin_transaction.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/calculate_char_size.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/col_to_redshift_type.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/commit_transaction.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/deletePrefix.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/hello.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/index.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/list_tables.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/queryDo.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/queryStmt.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/redshift_copy_to.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/redshiftr-package.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/rollback_transaction.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/rs_create_statement.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/rs_delete_table.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/rs_insert_sql.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/show_table_info.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/splitDetermine.html</loc></url>
+<url><loc>https://phildonovan.github.io/redshiftr/reference/uploadToS3.html</loc></url>
 </urlset>
+
