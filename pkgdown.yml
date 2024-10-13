@@ -1,8 +1,9 @@
-pandoc: 3.1.11
-pkgdown: 2.1.1
+pandoc: '3.2'
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-10-12T20:47Z
+last_built: 2024-10-13T00:17Z
 urls:
   reference: https://phildonovan.github.io/redshiftr/reference
   article: https://phildonovan.github.io/redshiftr/articles
+
